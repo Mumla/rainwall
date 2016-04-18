@@ -20,17 +20,29 @@ import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 public class SceneRenderer implements GLEventListener {
+	
 	private GLU glu = new GLU();
 	float rquad=0;
 	private int textureWall, textureWater;
 	Factory factory = null; 
 	final static float coverageRad = 120.0f;
+	private int xRot=0, yRot=0, zRot=0;
+	private float angleRotX=0;
+	private float angleRotY=0;
+	
 	
 	public SceneRenderer(Factory factory) {
 		this.factory=factory;
 	}
 	public void setFactory(Factory factory){
 		this.factory = factory;
+	}
+	public void updateRot(int x,  int y, int z, float angleX,  float angleY){
+		this.xRot+=x;
+		this.yRot+=y;
+		this.zRot+=z;
+		this.angleRotX+=angleX;
+		this.angleRotY+=angleY;
 	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
@@ -41,7 +53,8 @@ public class SceneRenderer implements GLEventListener {
 	    gl.glTranslated( 0f, 0f, -getCamerasZ() ); 
 
 	      // Rotate The Cube On X, Y & Z
-	    gl.glRotatef(rquad, 0.0f, 1.0f, 0.0f); 
+	    gl.glRotatef(angleRotX, xRot, 0, 0); 
+	    gl.glRotatef(angleRotY, 0, yRot, 0); 
 	    /*  gl.glEnable(GL2.GL_ALPHA);
 	      gl.glEnable (GL2.GL_BLEND);
 	      gl.glDisable(GL2.GL_CULL_FACE); 
@@ -56,10 +69,7 @@ public class SceneRenderer implements GLEventListener {
 	     for(Cube cube: factory.getWater()){
 	    	 SceneRenderer.drawCube(cube, gl);
 	     }
-    	 gl.glFlush();
-			
-	      rquad -= 0.15f;
-		
+    	 gl.glFlush();		
 	}
 	@Override
 	public void dispose(GLAutoDrawable arg0) {

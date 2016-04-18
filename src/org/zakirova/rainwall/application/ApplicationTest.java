@@ -3,6 +3,8 @@ package org.zakirova.rainwall.application;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
@@ -23,15 +25,16 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.util.FPSAnimator;
 
 
 public class ApplicationTest extends JPanel implements ActionListener{
 	
 	final JFileChooser fc = new JFileChooser();
 	SceneRenderer renderer;
-	 GLCanvas glcanvas;
+	GLCanvas glcanvas;
 	JFrame frame;
-	JTextField jtfPath;
+	JTextField jtfPath, jtfmouse;
 	
 	ApplicationTest(){
 		frame = new JFrame ( "RainWall" );
@@ -51,6 +54,7 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	    glcanvas = new GLCanvas( capabilities );
 	    glcanvas.setSize( 700, 700 );    
 	    renderer = new SceneRenderer(null);
+	    glcanvas.addMouseMotionListener(new RotationProceed(renderer));
 	    
 	    
 	    frame.add(jbtnBrowse);
@@ -58,9 +62,10 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	    frame.add(jbtnLoad);
 	    frame.add( glcanvas );
 	    
+	    jtfmouse= new JTextField(15);
+	    frame.add(jtfmouse);
 	    
-	    
-	      frame.setVisible( true );
+	    frame.setVisible( true );
 	}
 	
 	public static void main(String[] args) {
@@ -100,20 +105,20 @@ public class ApplicationTest extends JPanel implements ActionListener{
 			return factory;
 	}
 	private void showResult(Factory factory){
-	//	final GLProfile profile = GLProfile.get( GLProfile.GL2 );
-	//    GLCapabilities capabilities = new GLCapabilities( profile );
-	      
-	      // The canvas
-	 //   final GLCanvas glcanvas = new GLCanvas( capabilities );
+
 		if (factory != null){
 			
 			renderer.setFactory(factory);
 			glcanvas.addGLEventListener( renderer );
 			glcanvas.repaint();
+			final FPSAnimator animator = new FPSAnimator(glcanvas, 700,true);
+			animator.start();	
 			
 		}
 	    
 		
 	}
+
+	
 	
 }
