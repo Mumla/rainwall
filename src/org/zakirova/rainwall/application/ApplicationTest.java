@@ -54,7 +54,7 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	    glcanvas = new GLCanvas( capabilities );
 	    glcanvas.setSize( 700, 700 );    
 	    renderer = new SceneRenderer(null);
-	    glcanvas.addMouseMotionListener(new RotationProceed(renderer));
+	    glcanvas.addMouseMotionListener(new RotationProceed(renderer, glcanvas));
 	    
 	    
 	    frame.add(jbtnBrowse);
@@ -104,18 +104,9 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	private void showResult(Factory factory){
 
 		if (factory != null){
-			
 			renderer.setFactory(factory);
 			glcanvas.addGLEventListener( renderer );
-			glcanvas.repaint();
-			final FPSAnimator animator = new FPSAnimator(glcanvas, 700,true);
-			animator.start();	
-			
+			glcanvas.repaint();		
 		}
-	    
-		
 	}
-
-	
-	
 }

@@ -6,6 +6,8 @@ import java.awt.event.MouseMotionListener;
 
 import org.zakirova.rainwall.visualization.SceneRenderer;
 
+import com.jogamp.opengl.awt.GLCanvas;
+
 public class RotationProceed implements MouseListener, MouseMotionListener {
 	int oldX=0, oldY=0;
 	int newX=0, newY=0;
@@ -13,9 +15,11 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 	int perpY=0;
 	int perpZ=0;
 	SceneRenderer renderer;
+	GLCanvas glcanvas;
 	
-	public RotationProceed(SceneRenderer renderer){
+	public RotationProceed(SceneRenderer renderer, GLCanvas glcanvas){
 		this.renderer=renderer;
+		this.glcanvas=glcanvas;
 	}
 	
 	public void init(int x, int y){
@@ -60,7 +64,7 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 	public float getAngleX(){
 		double sum = Math.abs(newX-oldX)+Math.abs(newY-oldY);
 		double angle = (newY-oldY)/sum;
-		return (float) (angle*1.5f);
+		return (float) (angle*3.0f);
 	}
 
 	@Override
@@ -94,6 +98,7 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 		if(renderer!=null){
 			renderer.updateRot(perpX, perpY, 
 					perpZ, getAngleX(), getAngleY());
+			glcanvas.repaint();
 		}
 	}
 

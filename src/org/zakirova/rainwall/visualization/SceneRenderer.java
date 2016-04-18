@@ -36,7 +36,14 @@ public class SceneRenderer implements GLEventListener {
 	}
 	public void setFactory(Factory factory){
 		this.factory = factory;
-		updateRot(0, 0, 0, 0, 0);
+		resetRot();
+	}
+	private void resetRot(){
+		this.xRot=0;
+		this.yRot=0;
+		this.zRot=0;
+		this.angleRotX=0;
+		this.angleRotY=0;
 	}
 	public void updateRot(int x,  int y, int z, float angleX,  float angleY){
 		this.xRot+=x;
@@ -96,46 +103,19 @@ public class SceneRenderer implements GLEventListener {
 	  //	  
 	      
 	      try{			
-	         File im = new File("C:\\Politech\\geoscan\\wallTexture.jpg");
+	         File im = new File("resources/wallTexture.jpg");//"C:\\Politech\\geoscan\\wallTexture.jpg");
 	         Texture t = TextureIO.newTexture(im, true);
 	         textureWall = t.getTextureObject(gl);
 	         
-	         im = new File("C:\\Politech\\geoscan\\waterTexture.jpg");
+	         im = new File("resources/waterTexture.jpg");
 	         t = TextureIO.newTexture(im, true);
 	         textureWater = t.getTextureObject(gl);
 	      }catch(IOException e){
 	         e.printStackTrace();
 	      }
-	  	 // CreateTexture(gl);
 		
 	}
-	
-/*	public void CreateTexture(GL2 gl)
-    {
-        URL imageURL= this.getClass().getResource("resources/waterTexture.png");
-        
-        TextureData data=null;
-        try {
-             data = TextureIO.newTextureData(gl.getGLProfile(),
-                imageURL.openStream(),false, "png");
-             Texture t = TextureIO.newTexture(data);
-          //   textureWater = t.getTextureObject(gl);
-        } catch (IOException exc) {
-            exc.printStackTrace();
-            System.exit(1);
-        }       
-        
-            gl.glEnable(GL2.GL_TEXTURE_2D);
- 
-            gl.glGenTextures(1,textures,0);
-            gl.glBindTexture(GL2.GL_TEXTURE_2D, textures[0]);
-            
-            gl.glTexImage2D(GL2.GL_TEXTURE_2D, 0,GL2.GL_RGBA,data.getWidth(),data.getHeight(),0,GL2.GL_RGBA,
-                    GL2.GL_UNSIGNED_BYTE,data.getBuffer());
-    }
-	
-	*/
-	
+
 	@Override
 	public void reshape( GLAutoDrawable drawable, int x, int y, int width, int height) {
 		 final GL2 gl = drawable.getGL().getGL2();
@@ -217,27 +197,5 @@ public class SceneRenderer implements GLEventListener {
 	    gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3d( x+h, y, z+h ); // Bottom Left Of The Quad
 	    gl.glEnd();
 	}
-	
-/*	public static void main(String[] args) {
-		final GLProfile profile = GLProfile.get( GLProfile.GL2 );
-	      GLCapabilities capabilities = new GLCapabilities( profile );
-	      Factory fact = new Factory(2,  -5,  -5,  0);
-	      // The canvas
-	      final GLCanvas glcanvas = new GLCanvas( capabilities );
-	      SceneRenderer renderer = new SceneRenderer(fact);
-			
-	      glcanvas.addGLEventListener( renderer );
-	      glcanvas.setSize( 400, 400 );
-			
-	      final JFrame frame = new JFrame ( " Multicolored cube" );
-	      frame.getContentPane().add( glcanvas );
-	      frame.setSize( frame.getContentPane().getPreferredSize() );
-	      frame.setVisible( true );
-	      final FPSAnimator animator = new FPSAnimator(glcanvas, 300,true);
-			
-	      animator.start();
-	      
-	}
-	*/
-	
+
 }
