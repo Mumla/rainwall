@@ -5,7 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.swing.JOptionPane;
-
+/**
+ * Class file loader provides generation of input stream from file.
+ *  
+ * @author Irina Zakirova
+ *
+ */
 public class FileLoader {
 	public InputStream getDataStream(String path){
 		try{
@@ -19,11 +24,5 @@ public class FileLoader {
 				    JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
-	}
-	
-	public static void main(String[] args) {
-		FileLoader fl=new FileLoader();
-		fl.getDataStream("C:\\Politech\\geoscan\\wallTexture.jpg");
-		fl.getDataStream("C:\\Politech\\geoscan\\wallTextureqwe.jpg");
 	}
 }

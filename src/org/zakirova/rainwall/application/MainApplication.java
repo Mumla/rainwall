@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,14 +22,18 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 
 
-
+/**
+ * Class contains main method. Provide interaction with user.
+ * @author Irina Zakirova
+ *
+ */
 public class MainApplication extends JPanel implements ActionListener{
 		
-	final JFileChooser fc = new JFileChooser();
-	SceneRenderer renderer;
-	GLCanvas glcanvas;
-	JFrame frame;
-	JTextField jtfPath;
+	final private JFileChooser fc = new JFileChooser();
+	private SceneRenderer renderer;
+	private GLCanvas glcanvas;
+	private JFrame frame;
+	private JTextField jtfPath;
 	
 	MainApplication(){
 		frame = new JFrame ( "RainWall" );
@@ -77,19 +80,24 @@ public class MainApplication extends JPanel implements ActionListener{
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 		        File file = fc.getSelectedFile();
 		        jtfPath.setText(file.getAbsolutePath());
+		        load();
 			}
 		}
 		if (e.getActionCommand().equals("Load")){
-			FileLoader fl = new FileLoader();						
-			InputStream in = fl.getDataStream(jtfPath.getText());		//load file
-			if (in == null)
-				return;
-
-			List<Integer> wall = DataLoader.read(in);					//load inf about wall
-			Factory factory = createObjects(wall);						//solve problem and create objects
-			showResult(factory);
+			load();
 		}
 	}
+	private void load(){
+		FileLoader fl = new FileLoader();						
+		InputStream in = fl.getDataStream(jtfPath.getText());		//load file
+		if (in == null)
+			return;
+
+		List<Integer> wall = DataLoader.read(in);					//load inf about wall
+		Factory factory = createObjects(wall);						//solve problem and create objects
+		showResult(factory);
+	}
+	
 	private Factory createObjects(List<Integer> wall){
 		Calculation calc = new Calculation();
 		List<Integer> water = calc.run(wall);

@@ -6,18 +6,22 @@ import java.util.List;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
-
+/**
+ * Class allows render scene with wall. 
+ * It uses Factory to define which objects should be painted.
+ * 
+ * @author Irina Zakirova
+ *
+ */
 public class SceneRenderer implements GLEventListener {
 	
-	private GLU glu = new GLU();
 	float rquad=0;
 	private int textureWall, textureWater;
 	Factory factory = null; 
 	final static float coverageRad = 120.0f;
-	private int xRot=0, yRot=0, zRot=0;
+	private int xRot=0, yRot=0;
 	private float angleRotX=0;
 	private float angleRotY=0;
 	
@@ -32,14 +36,12 @@ public class SceneRenderer implements GLEventListener {
 	private void resetRot(){
 		this.xRot=0;
 		this.yRot=0;
-		this.zRot=0;
 		this.angleRotX=0;
 		this.angleRotY=0;
 	}
 	public void updateRot(int x,  int y, int z, float angleX,  float angleY){
 		this.xRot+=x;
 		this.yRot+=y;
-		this.zRot+=z;
 		this.angleRotX+=angleX;
 		this.angleRotY+=angleY;
 	}
@@ -87,7 +89,7 @@ public class SceneRenderer implements GLEventListener {
 	  	  gl.glTexEnvi(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);  
 	      
 	      try{			
-	         File im = new File("resources/wallTexture.jpg");//"C:\\Politech\\geoscan\\wallTexture.jpg");
+	         File im = new File("resources/wallTexture.jpg");
 	         Texture t = TextureIO.newTexture(im, true);
 	         textureWall = t.getTextureObject(gl);
 	         

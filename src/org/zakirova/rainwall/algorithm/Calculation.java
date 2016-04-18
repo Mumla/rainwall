@@ -4,9 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
+/**
+ * Class Calculation information about water according to given wall 
+ * 
+ * @author Irina Zakirova
+ *
+ */
 public class Calculation {
-	
+	/**
+	 * Main method of class. Generate information about water.
+	 * @param wall Given wall.
+	 * @return List with numbers of water cubes in every column.
+	 */
 	public List<Integer> run(List<Integer> wall){
 		if (wall==null) 
 			return null;

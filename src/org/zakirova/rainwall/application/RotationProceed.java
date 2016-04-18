@@ -7,7 +7,12 @@ import java.awt.event.MouseMotionListener;
 import org.zakirova.rainwall.visualization.SceneRenderer;
 
 import com.jogamp.opengl.awt.GLCanvas;
-
+/**
+ * Class provides rotation of picture according to dragging of Mouse.
+ * 
+ * @author Irina Zakirova
+ *
+ */
 public class RotationProceed implements MouseListener, MouseMotionListener {
 	int oldX=0, oldY=0;
 	int newX=0, newY=0;
@@ -58,13 +63,15 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 	}
 	public float getAngleY(){
 		double sum = Math.abs(newX-oldX)+Math.abs(newY-oldY);
+		if (Math.abs(sum)<0.00001) sum=1; 
 		double angle = (newX-oldX)/sum;
-		return (float) (angle);
+		return (float) (angle*3.0f);
 	}
 	public float getAngleX(){
 		double sum = Math.abs(newX-oldX)+Math.abs(newY-oldY);
+		if (Math.abs(sum)<0.00001) sum=1;
 		double angle = (newY-oldY)/sum;
-		return (float) (angle*3.0f);
+		return (float) (angle*2.0f);
 	}
 
 	@Override
@@ -94,6 +101,8 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//jtfmouse.setText("x="+e.getX()+"; y="+e.getY());
+		if (e.getX()<0 || e.getY()<0)
+			return;
 		update(e.getX(), e.getY());
 		if(renderer!=null){
 			renderer.updateRot(perpX, perpY, 

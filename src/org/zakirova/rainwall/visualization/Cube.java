@@ -1,6 +1,6 @@
 package org.zakirova.rainwall.visualization;
 /**
- * Cube class. It is used as primitive element of scene
+ * Cube class. It is used as primitive element of scene.
  * 
  * @author Irina Zakirova
  * @version 1.0.0 
