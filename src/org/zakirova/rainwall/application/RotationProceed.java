@@ -39,8 +39,8 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 		calcPerpend();
 	}
 	private void calcPerpend(){
-		perpX = oldY-newY;
-		perpY = newX-oldX;
+		perpX = newY - oldY;
+		perpY = newX - oldX;
 		perpZ = 0;//oldX*newY-oldY*newX;
 	}
 	public int getPerpendX(){
@@ -60,12 +60,11 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 	public float getAngleX(){
 		double sum = Math.abs(newX-oldX)+Math.abs(newY-oldY);
 		double angle = (newY-oldY)/sum;
-		return (float) (angle);
+		return (float) (angle*1.5f);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -81,14 +80,12 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -102,7 +99,6 @@ public class RotationProceed implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

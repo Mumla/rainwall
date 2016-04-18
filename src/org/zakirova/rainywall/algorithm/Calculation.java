@@ -31,15 +31,13 @@ public class Calculation {
 			waterLevel.add(new Integer(0));
 		}
 		LinkedList<Maximum> maximums= new LinkedList<Maximum>();
-		//for(int i=0; i<wall.size(); i++){
-		//	if(isFallingEdge)
 		ListIterator<Integer> it = wall.listIterator();
 		Integer hight=it.next();
 		Integer nextHight=it.next();
 		while(it.hasNext()){
 			//add Maximums
 			if(hight.compareTo(nextHight)>=0){
-				while(!maximums.isEmpty()&&hight.compareTo(maximums.getLast().getHight())>=0){
+				while(!maximums.isEmpty()&&hight.compareTo(maximums.getLast().getHight())>0){
 					maximums.removeLast();
 				}
 				maximums.add(new Maximum(it.previousIndex()-1, hight));
@@ -60,13 +58,17 @@ public class Calculation {
 						pos =maximums.getLast().getPosition();
 						maximums.removeLast();
 					}
+					if(!maximums.isEmpty()){
+						level = Math.min(hight, maximums.getLast().getHight());
+						pos =maximums.getLast().getPosition();
+					}
 					fillWater(waterLevel, level , pos , it.previousIndex()-1 );
 				}
 				hight=nextHight;
 				nextHight=it.next();
 			}
 			if (!maximums.isEmpty()){
-				int endLevel, endPos;
+				Integer endLevel, endPos;
 				if(hight>=nextHight){
 					endLevel = hight;
 					endPos = it.previousIndex()-1; 
@@ -77,9 +79,19 @@ public class Calculation {
 				}
 				int level = Math.min(endLevel, maximums.getLast().getHight());
 				int startPos =maximums.getLast().getPosition();
+				while((!maximums.isEmpty())&&endLevel.compareTo(maximums.getLast().getHight())>=0){
+					level = Math.min(endLevel, maximums.getLast().getHight());
+					startPos =maximums.getLast().getPosition();
+					maximums.removeLast();
+				}
+				if(!maximums.isEmpty()){
+					level = Math.min(endLevel, maximums.getLast().getHight());
+					startPos =maximums.getLast().getPosition();
+				}
 				fillWater(waterLevel, level, startPos, endPos);
 			}
 		}
+		
 		return waterLevel;	
 	}
 	private List<Integer> generateWater(List<Integer> wall, List<Integer> waterLevel){
@@ -145,14 +157,23 @@ public class Calculation {
 	public static void main(String[] args) {
 		Calculation calc = new Calculation();
 		ArrayList<Integer> wall = new ArrayList<Integer>(7);
+		wall.add(new Integer(4));
+		wall.add(new Integer(5));
 		wall.add(new Integer(1));
-		wall.add(new Integer(3));
 		wall.add(new Integer(2));
+		wall.add(new Integer(9));
 		wall.add(new Integer(2));
+		wall.add(new Integer(1));
 		wall.add(new Integer(5));
 		wall.add(new Integer(2));
+		wall.add(new Integer(7));
+		/*wall.add(new Integer(2));
+		wall.add(new Integer(7));
+		wall.add(new Integer(4));
 		wall.add(new Integer(5));
-		
+		wall.add(new Integer(11));
+		wall.add(new Integer(1));
+		*/
 		List<Integer> water = calc.run(wall);
 		System.out.println(water);
 		System.out.println(wall);

@@ -34,7 +34,7 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	SceneRenderer renderer;
 	GLCanvas glcanvas;
 	JFrame frame;
-	JTextField jtfPath, jtfmouse;
+	JTextField jtfPath;
 	
 	ApplicationTest(){
 		frame = new JFrame ( "RainWall" );
@@ -61,9 +61,6 @@ public class ApplicationTest extends JPanel implements ActionListener{
 	    frame.add(jtfPath);
 	    frame.add(jbtnLoad);
 	    frame.add( glcanvas );
-	    
-	    jtfmouse= new JTextField(15);
-	    frame.add(jtfmouse);
 	    
 	    frame.setVisible( true );
 	}

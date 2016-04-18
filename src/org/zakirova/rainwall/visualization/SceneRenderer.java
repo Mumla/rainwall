@@ -36,6 +36,7 @@ public class SceneRenderer implements GLEventListener {
 	}
 	public void setFactory(Factory factory){
 		this.factory = factory;
+		updateRot(0, 0, 0, 0, 0);
 	}
 	public void updateRot(int x,  int y, int z, float angleX,  float angleY){
 		this.xRot+=x;
@@ -146,7 +147,14 @@ public class SceneRenderer implements GLEventListener {
 	      gl.glMatrixMode( GL2.GL_PROJECTION );
 	      gl.glLoadIdentity();
 			
-	      glu.gluPerspective( coverageRad, h, 1.0, 20.0 );
+	      //glu.gluPerspective( coverageRad, h, 1.0, 20.0 );
+	      if (factory==null)
+	    	  gl.glOrtho(-1, 1, -1, 1, -1, 1);
+	      else{
+	    	  double max  = Math.max(factory.maxHight, factory.lenght)/2+2;
+	    	  gl.glOrtho(-max, max, -max, max, -4*max, 4*max);
+	      }
+	      
 	      gl.glMatrixMode( GL2.GL_MODELVIEW );
 	      gl.glLoadIdentity();
 		
