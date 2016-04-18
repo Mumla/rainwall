@@ -2,21 +2,12 @@ package org.zakirova.rainwall.visualization;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-
-import javax.swing.JFrame;
-
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.GLProfile;
-import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
-import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 public class SceneRenderer implements GLEventListener {
@@ -60,15 +51,9 @@ public class SceneRenderer implements GLEventListener {
 	    gl.glLoadIdentity();
 	    gl.glTranslated( 0f, 0f, -getCamerasZ() ); 
 
-	      // Rotate The Cube On X, Y & Z
 	    gl.glRotatef(angleRotX, xRot, 0, 0); 
 	    gl.glRotatef(angleRotY, 0, yRot, 0); 
-	    /*  gl.glEnable(GL2.GL_ALPHA);
-	      gl.glEnable (GL2.GL_BLEND);
-	      gl.glDisable(GL2.GL_CULL_FACE); 
-	      gl.glBlendFunc(1, GL2.GL_ONE_MINUS_SRC_ALPHA);*/
-	      
-	      
+    	      
 	     gl.glBindTexture(GL2.GL_TEXTURE_2D, textureWall);
 	     for(Cube cube: factory.getWall()){
 	    	 SceneRenderer.drawCube(cube, gl);
@@ -99,8 +84,7 @@ public class SceneRenderer implements GLEventListener {
 	      gl.glEnable(GL2.GL_TEXTURE_2D);
 	      gl.glTexParameteri(GL2.GL_TEXTURE_2D,GL2.GL_TEXTURE_MAG_FILTER,GL2.GL_LINEAR);
 	  	  gl.glTexParameteri(GL2.GL_TEXTURE_2D,GL2.GL_TEXTURE_MIN_FILTER,GL2.GL_LINEAR);
-	  	  gl.glTexEnvi(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);
-	  //	  
+	  	  gl.glTexEnvi(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE);  
 	      
 	      try{			
 	         File im = new File("resources/wallTexture.jpg");//"C:\\Politech\\geoscan\\wallTexture.jpg");
@@ -122,7 +106,7 @@ public class SceneRenderer implements GLEventListener {
 	      if( height == 0 )
 	         height = 1;
 				
-	      final float h = ( float ) width / ( float ) height;
+	      //final float h = ( float ) width / ( float ) height;
 	      gl.glViewport( 0, 0, width, height );
 	      gl.glMatrixMode( GL2.GL_PROJECTION );
 	      gl.glLoadIdentity();
@@ -160,16 +144,13 @@ public class SceneRenderer implements GLEventListener {
 		double z = cube.getZ();
 		double h = cube.getH();
 		
-		
 		gl.glBegin(GL2.GL_QUADS); // Start Drawing The Cube
 		
-		//gl.glColor3f(1f,0f,0f); //red color
 		gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3d(x, y+h, z); // Top Left Of The Quad (Top)
 		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3d( x+h, y+h, z); // Top Right Of The Quad (Top)
 		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3d( x+h, y+h, z+h ); // Bottom Right Of The Quad (Top)
 		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3d( x, y+h, z+h ); // Bottom Left Of The Quad (Top)
 			
-	    
 		gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3d( x, y, z ); // Top Left Of The Quad (Bottom)
 		gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3d( x+h, y, z ); // Top Right Of The Quad
 		gl.glTexCoord2f(1.0f, 0.0f); gl.glVertex3d( x+h, y, z+h ); // Bottom Right Of The Quad
@@ -185,7 +166,6 @@ public class SceneRenderer implements GLEventListener {
 	    gl.glTexCoord2f(1.0f, 1.0f); gl.glVertex3d( x+h, y, z ); // Top Right Of The Quad (Back)
 	    gl.glTexCoord2f(0.0f, 1.0f);gl.glVertex3d( x, y, z ); // Top Left Of The Quad (Back)
 	      
-	     //gl.glColor3f(0f,0f,1f); //red color
 	    gl.glTexCoord2f(0.0f, 0.0f); gl.glVertex3d( x, y+h, z ); // Top Left Of The Quad (Left)
 	    gl.glTexCoord2f(0.0f, 1.0f); gl.glVertex3d( x, y+h, z+h ); // Top Right Of The Quad (Left)
 	    gl.glTexCoord2f(1.0f, 1.0f);gl.glVertex3d( x, y, z+h ); // Bottom Right Of The Quad

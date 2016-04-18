@@ -1,6 +1,5 @@
 package org.zakirova.rainwall.visualization;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 /**
