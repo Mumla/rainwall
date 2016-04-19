@@ -108,12 +108,10 @@ public class SceneRenderer implements GLEventListener {
 	      if( height == 0 )
 	         height = 1;
 				
-	      //final float h = ( float ) width / ( float ) height;
 	      gl.glViewport( 0, 0, width, height );
 	      gl.glMatrixMode( GL2.GL_PROJECTION );
 	      gl.glLoadIdentity();
 			
-	      //glu.gluPerspective( coverageRad, h, 1.0, 20.0 );
 	      if (factory==null)
 	    	  gl.glOrtho(-1, 1, -1, 1, -1, 1);
 	      else{
@@ -130,7 +128,7 @@ public class SceneRenderer implements GLEventListener {
 		double zForHeight = factory.getMaxHeight()/2/Math.tan(Math.toRadians(coverageRad/2));
 		return Math.max(zForHeight+2,zForLength+2);
 	}
-	public boolean drawWallWater(GL2 gl, List<Cube> wall, List<Cube> water ){
+	private boolean drawWallWater(GL2 gl, List<Cube> wall, List<Cube> water ){
 		for (Cube cube :wall){
 			drawCube(cube, gl);
 		}
@@ -140,7 +138,7 @@ public class SceneRenderer implements GLEventListener {
 		}
 		return true;
 	}
-	public static void drawCube(Cube cube, GL2 gl){
+	private static void drawCube(Cube cube, GL2 gl){
 		double x = cube.getX();
 		double y = cube.getY();
 		double z = cube.getZ();

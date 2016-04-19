@@ -22,7 +22,15 @@ public class DataLoader {
 		if (in!=null){
 			scanner = new Scanner(in);
 			while(scanner.hasNextInt()){
-				data.add(new Integer(scanner.nextInt()));
+				int h=scanner.nextInt();
+				if (h<0) {
+					JOptionPane.showMessageDialog(null,
+						    "Negative value of heiht "+h,
+						    "File Error",
+						    JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				data.add(new Integer(h));
 			}
 			try {
 				if (scanner.hasNext()){

@@ -50,7 +50,7 @@ public class Calculation {
 				}
 				maximums.add(new Maximum(it.previousIndex()-1, hight));
 			}
-			//Going though falling edge
+			//Going through falling edge
 			while(it.hasNext()&&(hight.compareTo(nextHight)>=0)){
 				if((hight.intValue()==0)||(nextHight.intValue()==0))
 					maximums.clear();
@@ -102,6 +102,12 @@ public class Calculation {
 		
 		return waterLevel;	
 	}
+	/**
+	 * Generate list of numbers of water units in each column
+	 * @param wall Given heihts of wall
+	 * @param waterLevel
+	 * @return
+	 */
 	private List<Integer> generateWater(List<Integer> wall, List<Integer> waterLevel){
 		if((wall==null)||(waterLevel==null)||wall.size()!=waterLevel.size()){
 			return null;
